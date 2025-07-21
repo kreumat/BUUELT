@@ -129,98 +129,111 @@
                     </div>
                 </div>
                 
-                <!-- Members Table -->
-                <div class="member-list-container" style="width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
-                    <div class="members-table-container" style="width: 100%;">
-                        <table class="members-table">
-                            <thead>
-                                <tr>
-                                    <th class="flag-cell"></th>
-                                    <th>Name</th>
-                                    <th>Student ID <span class="tooltip-trigger">?<span class="tooltip">N stands for "not a student" or "not from Bursa Uludağ University"</span></span></th>
-                                    <th>Medals</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- D -->
-                                <tr class="alphabet-divider">
-                                    <td colspan="4">G</td>
-                                </tr>
-                                <tr>
-                                    <td class="flag-cell">
-                                        <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
-                                    </td>
-                                    <td>Gülsenur Açıkkol</td>
-                                    <td>N</td>
-                                    <td class="medals-cell">
-                                        <img alt="High Contribution Medal" class="medal-icon" src="images/medal6.png" title="High Contribution Medal">
-                                    </td>
-                                </tr>
-                                
-                                <!-- I -->
-                                <tr class="alphabet-divider">
-                                    <td colspan="4">I</td>
-                                </tr>
-                                <tr>
-                                    <td class="flag-cell">
-                                        <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
-                                    </td>
-                                    <td>İlayda Varlı</td>
-                                    <td>062310027</td>
-                                    <td class="medals-cell">
-                                        <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
-                                        <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
-                                        <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="flag-cell">
-                                        <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
-                                    </td>
-                                    <td>İsmail Şahin</td>
-                                    <td>022210132</td>
-                                    <td class="medals-cell">
-                                        <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
-                                        <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
-                                    </td>
-                                </tr>
-                                
-                                <!-- M -->
-                                <tr class="alphabet-divider">
-                                    <td colspan="4">M</td>
-                                </tr>
-                                <tr>
-                                    <td class="flag-cell">
-                                        <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
-                                    </td>
-                                    <td>Metin Torun</td>
-                                    <td>062210135</td>
-                                    <td class="medals-cell">
-                                        <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
-                                        <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
-                                        <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
-                                    </td>
-                                </tr>
-                                
-                                <!-- Y -->
-                                <tr class="alphabet-divider">
-                                    <td colspan="4">Y</td>
-                                </tr>
-                                <tr>
-                                    <td class="flag-cell">
-                                        <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
-                                    </td>
-                                    <td>Yusuf Terzi</td>
-                                    <td>062310053</td>
-                                    <td class="medals-cell">
-                                        <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
-                                        <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
-                                        <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
-                                        <img alt="Logo Contributor" class="medal-icon" src="images/starmedal1.png" title="Logo Contributor">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Members Table - Redesigned with better responsive behavior -->
+                <div class="members-grid-container">
+                    <!-- Table Header -->
+                    <div class="members-grid-header">
+                        <div class="members-grid-cell header-flag"></div>
+                        <div class="members-grid-cell header-name">Name</div>
+                        <div class="members-grid-cell header-id">Student ID <span class="tooltip-trigger">?<span class="tooltip">N stands for "not a student" or "not from Bursa Uludağ University"</span></span></div>
+                        <div class="members-grid-cell header-medals">Medals</div>
+                    </div>
+                    
+                    <!-- G Section -->
+                    <div class="alphabet-divider members-grid-row">
+                        <div class="members-grid-cell" colspan="4">G</div>
+                    </div>
+                    
+                    <div class="members-grid-row">
+                        <div class="members-grid-cell flag-cell">
+                            <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
+                        </div>
+                        <div class="members-grid-cell name-cell">Gülsenur Açıkkol</div>
+                        <div class="members-grid-cell id-cell">N</div>
+                        <div class="members-grid-cell medals-container">
+                            <div class="medals-wrapper">
+                                <img alt="High Contribution Medal" class="medal-icon" src="images/medal6.png" title="High Contribution Medal">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- I Section -->
+                    <div class="alphabet-divider members-grid-row">
+                        <div class="members-grid-cell" colspan="4">I</div>
+                    </div>
+                    
+                    <div class="members-grid-row">
+                        <div class="members-grid-cell flag-cell">
+                            <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
+                        </div>
+                        <div class="members-grid-cell name-cell">İlayda Varlı</div>
+                        <div class="members-grid-cell id-cell">062310027</div>
+                        <div class="members-grid-cell medals-container">
+                            <div class="medals-wrapper">
+                                <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
+                                <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
+                                <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="members-grid-row">
+                        <div class="members-grid-cell flag-cell">
+                            <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
+                        </div>
+                        <div class="members-grid-cell name-cell">İsmail Şahin</div>
+                        <div class="members-grid-cell id-cell">022210132</div>
+                        <div class="members-grid-cell medals-container">
+                            <div class="medals-wrapper">
+                                <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
+                                <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- M Section -->
+                    <div class="alphabet-divider members-grid-row">
+                        <div class="members-grid-cell" colspan="4">M</div>
+                    </div>
+                    
+                    <div class="members-grid-row">
+                        <div class="members-grid-cell flag-cell">
+                            <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
+                        </div>
+                        <div class="members-grid-cell name-cell">Metin Torun</div>
+                        <div class="members-grid-cell id-cell">062210135</div>
+                        <div class="members-grid-cell medals-container">
+                            <div class="medals-wrapper">
+                                <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
+                                <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
+                                <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Y Section -->
+                    <div class="alphabet-divider members-grid-row">
+                        <div class="members-grid-cell" colspan="4">Y</div>
+                    </div>
+                    
+                    <div class="members-grid-row">
+                        <div class="members-grid-cell flag-cell">
+                            <img alt="Turkey" class="country-flag" src="images/turkishflag.png">
+                        </div>
+                        <div class="members-grid-cell name-cell">Yusuf Terzi</div>
+                        <div class="members-grid-cell id-cell">062310053</div>
+                        <div class="members-grid-cell medals-container">
+                            <div class="medals-wrapper">
+                                <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
+                                <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
+                                <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
+                                <img alt="Logo Contributor" class="medal-icon" src="images/starmedal1.png" title="Logo Contributor">
+                                <img alt="2025-2026 Member Medal" class="medal-icon" src="images/medal1.png" title="2025-2026 Member">
+                                <img alt="2025-2026 Board Member Medal" class="medal-icon" src="images/medal2.png" title="2025-2026 Board Member">
+                                <img alt="Pioneer Member Medal" class="medal-icon" src="images/medal3.png" title="Pioneer Member Medal">
+                                <img alt="Logo Contributor" class="medal-icon" src="images/starmedal1.png" title="Logo Contributor">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
