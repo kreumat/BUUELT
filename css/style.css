@@ -743,10 +743,9 @@ footer {
     text-align: left;
   }
 
-  .logo h1::after {
-    content: "";
-    display: block;
-  }
+   .logo h1::after {
+     content: none;  /* removes the pseudo-element */
+   }
 
   .logo h1 {
     display: inline-block;
