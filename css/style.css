@@ -727,7 +727,6 @@ footer {
     gap: 0.5rem;
     max-width: 100%;
     overflow: hidden;
-    white-space: nowrap;
   }
 
   .logo img {
@@ -736,27 +735,39 @@ footer {
   }
 
   .logo h1 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     line-height: 1.2;
-    margin-bottom: 0;
-    white-space: nowrap;
+    margin: 0;
+    white-space: normal;
     overflow: hidden;
-    text-overflow: ellipsis; /* Prevents text from overflowing */
-    max-width: 100%;
+    text-align: left;
   }
 
-  .nav-toggle {
+  .logo h1::after {
+    content: "";
     display: block;
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    color: var(--primary);
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-left: auto;
   }
 
-  header {
-    padding: 0.5rem 0;
+  .logo h1 {
+    display: inline-block;
+  }
+
+  /* Force line break after "BUÜ English Language" */
+  .logo h1::before {
+    content: "BUÜ English Language\A Teaching Society";
+    white-space: pre-line;
+  }
+
+  /* Hide the original text (only show the ::before content) */
+  .logo h1 {
+    color: transparent;
+    position: relative;
+  }
+
+  .logo h1::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--primary);
   }
 }
