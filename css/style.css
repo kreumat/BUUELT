@@ -682,10 +682,12 @@ footer {
     object-fit: contain;
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .popup-image:hover {
     transform: scale(1.02);
+    border-radius: 5px;
 }
 
 .fade-out {
