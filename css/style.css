@@ -711,29 +711,43 @@ footer {
 
 @media (max-width: 600px) {
   .header-container {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
   }
 
   .logo {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
+    gap: 0.5rem;
+    max-width: 75%;
+  }
+
+  .logo img {
+    height: 40px; /* Smaller logo on mobile */
+    margin-right: 0.5rem;
   }
 
   .logo h1 {
-    font-size: 1.25rem;
-    max-width: 90%;
+    font-size: 1rem;
     line-height: 1.2;
     margin-bottom: 0;
     word-break: break-word;
+    max-width: 100%;
   }
 
   .nav-toggle {
-    position: static;
-    margin-top: 0.5rem;
+    display: block;
+    font-size: 1.4rem;
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
   }
 
   .hero h2 {
@@ -741,6 +755,7 @@ footer {
   }
 
   .hero p {
+    font-size: 1rem;
     margin-bottom: 1rem;
   }
 }
