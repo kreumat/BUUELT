@@ -233,20 +233,79 @@ nav a.active {
   transform: scale(1.1);
 }
 
-.medals-cell {
+/* Members Grid Table Styles - Replacement for traditional table */
+.members-grid-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background-color: var(--card-bg);
+  border-radius: 5px;
+  box-shadow: 0 3px 10px var(--shadow);
+  overflow: visible; /* Changed from hidden to allow tooltips to display properly */
+  position: relative; /* Ensure proper positioning context */
+}
+
+.members-grid-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr 1.5fr;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.members-grid-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr 1.5fr;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.members-grid-row:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.members-grid-row:last-child {
+  border-bottom: none;
+}
+
+.members-grid-cell {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.header-flag, .header-name, .header-id, .header-medals {
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.flag-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-cell, .id-cell {
+  display: flex;
+  align-items: center;
+}
+
+.medals-container {
+  padding: 0.75rem 1rem;
+}
+
+.medals-wrapper {
   display: flex;
   flex-wrap: wrap;
-  text-align: left;
-  padding-left: 0.5rem;
-  vertical-align: middle;
-  gap: 1rem 1rem; /* row-gap column-gap: vertical horizontal spacing */
+  gap: 8px;
+  align-items: center;
 }
 
 .medal-icon {
   width: 24px;
   height: 30px;
   transition: transform 0.3s ease;
-  vertical-align: middle;
+  flex-shrink: 0;
 }
 
 .medal-icon:hover {
@@ -286,7 +345,8 @@ nav a.active {
   box-shadow: 0 3px 10px var(--shadow);
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 10;
+  z-index: 1000; /* Increased z-index to ensure visibility */
+  pointer-events: none; /* Prevents tooltip from interfering with clicks */
 }
 
 .tooltip::after {
@@ -310,9 +370,10 @@ nav a.active {
   background-color: var(--secondary);
   color: white;
   text-align: left;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem; /* Reduced vertical padding */
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem; /* Slightly smaller font */
+  line-height: 1.2; /* Tighter line height */
 }
 
 .flag-cell {
@@ -596,6 +657,21 @@ footer {
   }
 }
 
+/* Mobile adjustments for members grid */
+@media (max-width: 768px) {
+  .members-grid-header, .members-grid-row {
+    grid-template-columns: 50px 1fr 0.8fr 1.2fr;
+  }
+  
+  .members-grid-cell {
+    padding: 0.75rem;
+  }
+  
+  .medals-wrapper {
+    gap: 6px;
+  }
+}
+
 /* Mobile-specific styles for max-width: 600px */
 @media (max-width: 600px) {
   .header-container {
@@ -632,6 +708,32 @@ footer {
     background-color: var(--card-bg);
     box-shadow: 0 2px 5px var(--shadow);
     z-index: 99;
+  }
+  
+  .members-grid-container {
+    margin: 1rem 0;
+  }
+  
+  .members-grid-header, .members-grid-row {
+    grid-template-columns: 40px 1fr 0.7fr 1fr;
+  }
+  
+  .members-grid-cell, .header-flag, .header-name, .header-id, .header-medals {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .medals-container {
+    padding: 0.5rem;
+  }
+  
+  .medals-wrapper {
+    gap: 5px;
+  }
+  
+  .medal-icon {
+    width: 20px;
+    height: 25px;
   }
   
   .nav-menu.active {
@@ -683,9 +785,10 @@ footer {
   .members-table td {
     padding: 0.75rem 0.5rem;
   }
-
-  .medals-cell {
-    flex-direction: row;
+  
+  .medal-icon {
+    width: 20px;
+    height: 25px;
   }
 }
 
