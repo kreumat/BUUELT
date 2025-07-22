@@ -238,6 +238,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup recurring popup (every 10 minutes)
     const checkForRecurringPopup = () => {
+        // First check if a popup is already visible
+        const existingPopup = document.querySelector('.popup-overlay');
+        if (existingPopup) {
+            return; // Don't show a new popup if one is already visible
+        }
+        
         const lastPopupTime = localStorage.getItem('lastPopupTime');
         const currentTime = Date.now();
         
