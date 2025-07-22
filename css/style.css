@@ -458,8 +458,9 @@ main {
 
 .announcement-card img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
   border-radius: 5px;
   margin-bottom: 1rem;
 }
@@ -488,9 +489,10 @@ main {
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
+  max-width: 1200px;
 }
 
 .team-member {
@@ -499,6 +501,11 @@ main {
   box-shadow: 0 3px 10px var(--shadow);
   padding: 1.5rem;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-5px);
 }
 
 .team-member img {
@@ -659,6 +666,13 @@ footer {
   }
 }
 
+/* Specific fix for 768px breakpoint to match text size with 767px */
+@media (width: 768px) {
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .header-container {
     flex-direction: column;
@@ -806,6 +820,23 @@ footer {
   nav a.active, nav a:hover {
     background-color: rgba(0, 0, 0, 0.05);
     border-bottom: none;
+  }
+}
+
+/* Added medium screen styles for team grid */
+@media (min-width: 577px) and (max-width: 992px) {
+  .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .team-member {
+    padding: 1.25rem;
+  }
+  
+  .team-member img {
+    width: 120px;
+    height: 120px;
   }
 }
 
