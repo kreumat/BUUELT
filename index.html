@@ -135,5 +135,29 @@
 
     <!-- JavaScript for popup and responsive navigation -->
     <script src="js/popup.js"></script>
+    
+    <!-- Subtle adjustment to popup dimensions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create a simple style element to adjust popup proportions
+            const style = document.createElement('style');
+            style.textContent = `
+                .popup-container {
+                    max-width: 580px;
+                }
+                .popup-content-wrapper {
+                    max-width: 550px;
+                }
+                .popup-content-wrapper img {
+                    max-height: 65vh; /* Even bigger image */
+                }
+                .popup-button-close {
+                    padding: 8px 20px; /* Smaller padding */
+                    font-size: 14px; /* Smaller font size */
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
 </body>
 </html>
