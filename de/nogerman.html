@@ -35,45 +35,6 @@
             transition: transform 0.2s ease;
         }
         
-        /* Mobile Controls Styles */
-        #mobile-controls {
-            display: none;
-            margin: 0 0 15px 0;
-            align-self: flex-start;
-            width: 120px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
-            padding: 5px;
-            z-index: 1001;
-        }
-        
-        .control-button {
-            width: 30px;
-            height: 30px;
-            margin: 3px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .control-button:active {
-            background-color: var(--accent);
-            transform: scale(0.95);
-        }
-        
-        .controls-row {
-            display: flex;
-            justify-content: center;
-            margin: 5px 0;
-        }
 
         .error-title {
             font-size: 8rem;
@@ -199,17 +160,6 @@
         
         <div class="container">
             <div class="error-container">
-                <!-- Mobile controls for chicken movement - left aligned -->
-                <div id="mobile-controls" style="align-self: flex-start;">
-                    <div class="controls-row">
-                        <button class="control-button" id="btn-w">W</button>
-                    </div>
-                    <div class="controls-row">
-                        <button class="control-button" id="btn-a">A</button>
-                        <button class="control-button" id="btn-s">S</button>
-                        <button class="control-button" id="btn-d">D</button>
-                    </div>
-                </div>
                 
                 <h1 class="error-title">oof!</h1>
                 <p class="error-message">Momentan gibt es keine deutsche Übersetzung, aber sie kommt bald! Danke für deine Geduld!</p>
@@ -340,8 +290,6 @@
                 chicken.style.left = chickenX + 'px';
                 chicken.style.top = chickenY + 'px';
                 
-                // Show mobile controls
-                document.getElementById('mobile-controls').style.display = 'block';
                 
                 // Start animation cycle
                 startChickenAnimation();
@@ -421,95 +369,6 @@
                     }
                 }, 150); // Change frame every 150ms for smooth animation
             }
-            // Set up mobile control buttons
-            function setupMobileControls() {
-                const btnW = document.getElementById('btn-w');
-                const btnA = document.getElementById('btn-a');
-                const btnS = document.getElementById('btn-s');
-                const btnD = document.getElementById('btn-d');
-                
-                // Helper function to create keyboard events
-                function simulateKeyEvent(key, type) {
-                    const event = new KeyboardEvent(type, {
-                        key: key,
-                        code: 'Key' + key.toUpperCase(),
-                        keyCode: key.charCodeAt(0),
-                        which: key.charCodeAt(0),
-                        bubbles: true,
-                        cancelable: true
-                    });
-                    document.dispatchEvent(event);
-                }
-                
-                // Touch and mouse events for W button
-                ['touchstart', 'mousedown'].forEach(eventType => {
-                    btnW.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('w', 'keydown');
-                    });
-                });
-                
-                ['touchend', 'mouseup'].forEach(eventType => {
-                    btnW.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('w', 'keyup');
-                    });
-                });
-                
-                // Touch and mouse events for A button
-                ['touchstart', 'mousedown'].forEach(eventType => {
-                    btnA.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('a', 'keydown');
-                    });
-                });
-                
-                ['touchend', 'mouseup'].forEach(eventType => {
-                    btnA.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('a', 'keyup');
-                    });
-                });
-                
-                // Touch and mouse events for S button
-                ['touchstart', 'mousedown'].forEach(eventType => {
-                    btnS.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('s', 'keydown');
-                    });
-                });
-                
-                ['touchend', 'mouseup'].forEach(eventType => {
-                    btnS.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('s', 'keyup');
-                    });
-                });
-                
-                // Touch and mouse events for D button
-                ['touchstart', 'mousedown'].forEach(eventType => {
-                    btnD.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('d', 'keydown');
-                    });
-                });
-                
-                ['touchend', 'mouseup'].forEach(eventType => {
-                    btnD.addEventListener(eventType, (e) => {
-                        e.preventDefault();
-                        simulateKeyEvent('d', 'keyup');
-                    });
-                });
-                
-                // Prevent default touch behavior to avoid scrolling while using controls
-                const mobileControls = document.getElementById('mobile-controls');
-                mobileControls.addEventListener('touchmove', (e) => {
-                    e.preventDefault();
-                });
-            }
-            
-            // Initialize mobile controls
-            setupMobileControls();
         });
         
         // Handle responsive navigation
