@@ -101,7 +101,7 @@ function showRecurringPopup() {
     });
     
     // Store the time this popup was shown
-    localStorage.setItem('lastPopupTime', Date.now());
+    localStorage.setItem('lastPopupTime_en', Date.now());
 }
 
 // Image Popup Functionality
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // Don't show a new popup if one is already visible
         }
         
-        const lastPopupTime = localStorage.getItem('lastPopupTime');
+        const lastPopupTime = localStorage.getItem('lastPopupTime_en');
         const currentTime = Date.now();
         
         // If no record of last popup or it's been more than 10 minutes
