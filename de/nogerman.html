@@ -21,6 +21,58 @@
             text-align: center;
             padding: 2rem;
         }
+        
+        /* Chicken Easter Egg Styles */
+        #chicken {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background-image: url('gorsellerde/chicken_pictures/chicken_walk_down1.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 1000;
+            display: none;
+            transition: transform 0.2s ease;
+        }
+        
+        /* Mobile Controls Styles */
+        #mobile-controls {
+            display: none;
+            margin: 0 auto 15px auto;
+            width: 120px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .control-button {
+            width: 30px;
+            height: 30px;
+            margin: 3px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .control-button:active {
+            background-color: var(--accent);
+            transform: scale(0.95);
+        }
+        
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+        }
 
         .error-title {
             font-size: 8rem;
@@ -115,6 +167,13 @@
                 height: 150px;
             }
         }
+        
+        @keyframes walking {
+            0% { opacity: 1; }
+            25% { opacity: 1; }
+            26% { opacity: 0; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -134,8 +193,23 @@
 
     <!-- Main Content -->
     <main>
+        <!-- Chicken character for easter egg -->
+        <div id="chicken"></div>
+        
         <div class="container">
             <div class="error-container">
+                <!-- Mobile controls for chicken movement -->
+                <div id="mobile-controls">
+                    <div class="controls-row">
+                        <button class="control-button" id="btn-w">W</button>
+                    </div>
+                    <div class="controls-row">
+                        <button class="control-button" id="btn-a">A</button>
+                        <button class="control-button" id="btn-s">S</button>
+                        <button class="control-button" id="btn-d">D</button>
+                    </div>
+                </div>
+                
                 <h1 class="error-title">oof!</h1>
                 <p class="error-message">Momentan gibt es keine deutsche Übersetzung, aber sie kommt bald! Danke für deine Geduld!</p>
 				<p class="error-message" style="font-size: 0.85rem;">tr: Şu an için Almanca çeviri yok, ama yakında geliyor! Sabrınız için teşekkürler!</p>
@@ -151,8 +225,292 @@
     </main>
 
 
-    <!-- JavaScript for image switching and responsive navigation -->
+    <!-- JavaScript for image switching, responsive navigation, and easter egg -->
     <script>
+        // Easter egg code for BUUELT sequence and chicken character
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables for the easter egg
+            let keySequence = [];
+            const correctSequence = ['B', 'U', 'U', 'E', 'L', 'T'];
+            let lastKeyTime = 0;
+            let timeLimit = 10000; // 10 seconds in milliseconds
+            let chickenActive = false;
+            
+            // Chicken character properties
+            const chicken = document.getElementById('chicken');
+            let chickenX = 0;
+            let chickenY = 0;
+            let direction = 'down';
+            let animationFrame = 1;
+            let isMoving = false;
+            let animationInterval;
+            let keysPressed = {
+                w: false,
+                a: false,
+                s: false,
+                d: false
+            };
+            
+            // Listen for keydown events to detect the BUUELT sequence
+            document.addEventListener('keydown', function(event) {
+                const key = event.key.toUpperCase();
+                const currentTime = Date.now();
+                
+                // Reset sequence if time limit exceeded
+                if (currentTime - lastKeyTime > timeLimit && keySequence.length > 0) {
+                    keySequence = [];
+                }
+                
+                // Only track keys if chicken is not active
+                if (!chickenActive) {
+                    // Add the key to the sequence and update time
+                    if (correctSequence.includes(key)) {
+                        keySequence.push(key);
+                        lastKeyTime = currentTime;
+                        
+                        // Check if the sequence is correct so far
+                        let isCorrect = true;
+                        for (let i = 0; i < keySequence.length; i++) {
+                            if (keySequence[i] !== correctSequence[i]) {
+                                isCorrect = false;
+                                break;
+                            }
+                        }
+                        
+                        // If incorrect, reset the sequence
+                        if (!isCorrect) {
+                            keySequence = [];
+                        }
+                        
+                        // If complete sequence detected, activate chicken
+                        if (keySequence.length === correctSequence.length && isCorrect) {
+                            activateChicken();
+                        }
+                    }
+                }
+                
+                // WASD movement controls for chicken when active
+                if (chickenActive) {
+                    if (event.key.toLowerCase() === 'w') keysPressed.w = true;
+                    if (event.key.toLowerCase() === 'a') keysPressed.a = true;
+                    if (event.key.toLowerCase() === 's') keysPressed.s = true;
+                    if (event.key.toLowerCase() === 'd') keysPressed.d = true;
+                    
+                    updateChickenDirection();
+                    if (!isMoving) {
+                        isMoving = true;
+                        requestAnimationFrame(moveChicken);
+                    }
+                }
+            });
+            
+            // Listen for keyup events to stop chicken movement
+            document.addEventListener('keyup', function(event) {
+                if (chickenActive) {
+                    if (event.key.toLowerCase() === 'w') keysPressed.w = false;
+                    if (event.key.toLowerCase() === 'a') keysPressed.a = false;
+                    if (event.key.toLowerCase() === 's') keysPressed.s = false;
+                    if (event.key.toLowerCase() === 'd') keysPressed.d = false;
+                    
+                    updateChickenDirection();
+                    
+                    // If no keys are pressed, stop chicken movement and animation
+                    if (!keysPressed.w && !keysPressed.a && !keysPressed.s && !keysPressed.d) {
+                        isMoving = false;
+                        // Reset to first frame of current direction
+                        chicken.style.backgroundImage = `url('gorsellerde/chicken_pictures/chicken_walk_${direction}1.png')`;
+                    }
+                }
+            });
+            
+            // Function to activate the chicken character
+            function activateChicken() {
+                chickenActive = true;
+                keySequence = []; // Reset sequence
+                
+                // Set chicken position to center of screen
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                chickenX = (viewportWidth / 2) - 16; // 16 is half the chicken width
+                chickenY = (viewportHeight / 2) - 16; // 16 is half the chicken height
+                
+                // Show and position the chicken
+                chicken.style.display = 'block';
+                chicken.style.left = chickenX + 'px';
+                chicken.style.top = chickenY + 'px';
+                
+                // Show mobile controls
+                document.getElementById('mobile-controls').style.display = 'block';
+                
+                // Start animation cycle
+                startChickenAnimation();
+            }
+            
+            // Function to update chicken direction based on keys pressed
+            function updateChickenDirection() {
+                // Determine direction based on keys pressed
+                if (keysPressed.w && !keysPressed.s) {
+                    if (keysPressed.a && !keysPressed.d) {
+                        direction = 'left'; // Diagonal up-left, use left sprite
+                    } else if (keysPressed.d && !keysPressed.a) {
+                        direction = 'right'; // Diagonal up-right, use right sprite
+                    } else {
+                        direction = 'up'; // Pure up
+                    }
+                } else if (keysPressed.s && !keysPressed.w) {
+                    if (keysPressed.a && !keysPressed.d) {
+                        direction = 'left'; // Diagonal down-left, use left sprite
+                    } else if (keysPressed.d && !keysPressed.a) {
+                        direction = 'right'; // Diagonal down-right, use right sprite
+                    } else {
+                        direction = 'down'; // Pure down
+                    }
+                } else if (keysPressed.a && !keysPressed.d) {
+                    direction = 'left'; // Pure left
+                } else if (keysPressed.d && !keysPressed.a) {
+                    direction = 'right'; // Pure right
+                }
+                
+                // If no movement, keep current direction but show first frame
+                if (!isMoving && (keysPressed.w || keysPressed.a || keysPressed.s || keysPressed.d)) {
+                    chicken.style.backgroundImage = `url('gorsellerde/chicken_pictures/chicken_walk_${direction}1.png')`;
+                }
+            }
+            
+            // Function to move chicken based on keys pressed
+            function moveChicken() {
+                const speed = 3; // Pixels per frame
+                
+                // Calculate movement
+                if (keysPressed.w) chickenY -= speed;
+                if (keysPressed.a) chickenX -= speed;
+                if (keysPressed.s) chickenY += speed;
+                if (keysPressed.d) chickenX += speed;
+                
+                // Keep chicken within viewport
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                chickenX = Math.max(0, Math.min(chickenX, viewportWidth - 32));
+                chickenY = Math.max(0, Math.min(chickenY, viewportHeight - 32));
+                
+                // Update chicken position
+                chicken.style.left = chickenX + 'px';
+                chicken.style.top = chickenY + 'px';
+                
+                // Continue animation if still moving
+                if (isMoving) {
+                    requestAnimationFrame(moveChicken);
+                }
+            }
+            
+            // Function to handle chicken animation
+            function startChickenAnimation() {
+                let frameCount = 1;
+                
+                // Clear any existing interval
+                if (animationInterval) {
+                    clearInterval(animationInterval);
+                }
+                
+                // Set animation interval
+                animationInterval = setInterval(function() {
+                    if (isMoving) {
+                        frameCount = (frameCount % 4) + 1; // Cycle through frames 1-4
+                        chicken.style.backgroundImage = `url('gorsellerde/chicken_pictures/chicken_walk_${direction}${frameCount}.png')`;
+                    }
+                }, 150); // Change frame every 150ms for smooth animation
+            }
+            // Set up mobile control buttons
+            function setupMobileControls() {
+                const btnW = document.getElementById('btn-w');
+                const btnA = document.getElementById('btn-a');
+                const btnS = document.getElementById('btn-s');
+                const btnD = document.getElementById('btn-d');
+                
+                // Helper function to create keyboard events
+                function simulateKeyEvent(key, type) {
+                    const event = new KeyboardEvent(type, {
+                        key: key,
+                        code: 'Key' + key.toUpperCase(),
+                        keyCode: key.charCodeAt(0),
+                        which: key.charCodeAt(0),
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    document.dispatchEvent(event);
+                }
+                
+                // Touch and mouse events for W button
+                ['touchstart', 'mousedown'].forEach(eventType => {
+                    btnW.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('w', 'keydown');
+                    });
+                });
+                
+                ['touchend', 'mouseup'].forEach(eventType => {
+                    btnW.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('w', 'keyup');
+                    });
+                });
+                
+                // Touch and mouse events for A button
+                ['touchstart', 'mousedown'].forEach(eventType => {
+                    btnA.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('a', 'keydown');
+                    });
+                });
+                
+                ['touchend', 'mouseup'].forEach(eventType => {
+                    btnA.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('a', 'keyup');
+                    });
+                });
+                
+                // Touch and mouse events for S button
+                ['touchstart', 'mousedown'].forEach(eventType => {
+                    btnS.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('s', 'keydown');
+                    });
+                });
+                
+                ['touchend', 'mouseup'].forEach(eventType => {
+                    btnS.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('s', 'keyup');
+                    });
+                });
+                
+                // Touch and mouse events for D button
+                ['touchstart', 'mousedown'].forEach(eventType => {
+                    btnD.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('d', 'keydown');
+                    });
+                });
+                
+                ['touchend', 'mouseup'].forEach(eventType => {
+                    btnD.addEventListener(eventType, (e) => {
+                        e.preventDefault();
+                        simulateKeyEvent('d', 'keyup');
+                    });
+                });
+                
+                // Prevent default touch behavior to avoid scrolling while using controls
+                const mobileControls = document.getElementById('mobile-controls');
+                mobileControls.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                });
+            }
+            
+            // Initialize mobile controls
+            setupMobileControls();
+        });
+        
         // Handle responsive navigation
         document.getElementById('navToggle').addEventListener('click', function() {
             document.getElementById('navMenu').classList.toggle('active');
