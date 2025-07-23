@@ -19,6 +19,28 @@
                 <img alt="BUUELTS Logo" src="images/placeholderlogo.png">
                 <h1>BUÜ English Language Teaching Society</h1>
             </div>
+            
+            <div class="lang-selector" id="langSelector">
+                <div class="lang-selected" id="langSelected">
+                    <img src="images/britishflag.png" alt="English" class="lang-flag">
+                    <span class="lang-name">English</span>
+                </div>
+                <div class="lang-dropdown">
+                    <a href="index.html" class="lang-option">
+                        <img src="images/britishflag.png" alt="English" class="lang-flag">
+                        <span>English</span>
+                    </a>
+                    <a href="tr/ana-sayfa.html" class="lang-option">
+                        <img src="tr/gorseller/turkishflag.png" alt="Türkçe" class="lang-flag">
+                        <span>Türkçe</span>
+                    </a>
+                    <a href="de/nogerman.html" class="lang-option">
+                        <img src="de/gorsellerde/germanflag.png" alt="Deutsch" class="lang-flag">
+                        <span>Deutsch</span>
+                    </a>
+                </div>
+            </div>
+            
             <button class="nav-toggle" id="navToggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -26,7 +48,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
-                    <li><a href="announcements.html">Announcements</a></li>
+                    <li><a href="announcements-page.html">Announcements</a></li>
                     <li><a class="active" href="members.html">Members &amp; Contributors</a></li>
                 </ul>
             </nav>
@@ -270,7 +292,7 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="announcements.html">Announcements</a></li>
+                        <li><a href="announcements-page.html">Announcements</a></li>
                         <li><a href="members.html">Members &amp; Contributors</a></li>
                     </ul>
                 </div>
@@ -290,10 +312,37 @@
         </div>
     </footer>
 
-    <!-- JavaScript for responsive navigation -->
+    <!-- JavaScript for responsive navigation and language selector -->
     <script>
         document.getElementById('navToggle').addEventListener('click', function() {
             document.getElementById('navMenu').classList.toggle('active');
+        });
+        
+        // Language dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelector = document.getElementById('langSelector');
+            const langSelected = document.getElementById('langSelected');
+            
+            if (langSelected && langSelector) {
+                langSelected.addEventListener('click', function() {
+                    langSelector.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!langSelector.contains(event.target)) {
+                        langSelector.classList.remove('active');
+                    }
+                });
+                
+                // Optional: Store selected language in localStorage
+                const langOptions = document.querySelectorAll('.lang-option');
+                langOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        localStorage.setItem('preferredLanguage', this.getAttribute('href'));
+                    });
+                });
+            }
         });
     </script>
 </body>

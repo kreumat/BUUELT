@@ -123,21 +123,12 @@
         <div class="container header-container">
             <div class="logo">
                 <img src="images/placeholderlogo.png" alt="BUUELTS Logo">
-                <h1>BUÜ English Language Teaching Society</h1>
             </div>
+           
             
             <button class="nav-toggle" id="navToggle">
-                <i class="fas fa-bars"></i>
             </button>
             
-            <nav class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="announcements.html">Announcements</a></li>
-                    <li><a href="members.html">Members & Contributors</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
@@ -147,6 +138,8 @@
             <div class="error-container">
                 <h1 class="error-title">404</h1>
                 <p class="error-message">The page you are looking for couldn't be found :(</p>
+				<p class="error-message" style="font-size: 0.85rem;">tr: Aradığınız sayfa bulunamadı :(</p>
+				<p class="error-message" style="font-size: 0.85rem;">de: Die gesuchte Seite konnte nicht gefunden werden :(</p>
                 
                 <div class="error-image-container">
                     <img src="images/closedbox.png" alt="Closed Box" class="error-image" id="errorImage">
@@ -157,47 +150,38 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-column">
-                    <h3>About BUUELTS</h3>
-                    <p>The BUÜ English Language Teaching Society is dedicated to fostering a community of future educators passionate about language teaching and learning.</p>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="announcements.html">Announcements</a></li>
-                        <li><a href="members.html">Members & Contributors</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/buuelt/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                        <a href="https://chat.whatsapp.com/LbgK1IiVax59SCB3QaQa9J" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                    <p>Email: buuelts@example.edu</p>
-                    <p>Location: Görükle, Uludağ Üniversitesi Görükle Yerleşkesi, 16285 Nilüfer/Ni̇lüfer/Bursa</p>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2025 BUÜ English Language Teaching Society. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <!-- JavaScript for image switching and responsive navigation -->
     <script>
         // Handle responsive navigation
         document.getElementById('navToggle').addEventListener('click', function() {
             document.getElementById('navMenu').classList.toggle('active');
+        });
+        
+        // Language dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelector = document.getElementById('langSelector');
+            const langSelected = document.getElementById('langSelected');
+            
+            if (langSelected && langSelector) {
+                langSelected.addEventListener('click', function() {
+                    langSelector.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!langSelector.contains(event.target)) {
+                        langSelector.classList.remove('active');
+                    }
+                });
+                
+                // Optional: Store selected language in localStorage
+                const langOptions = document.querySelectorAll('.lang-option');
+                langOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        localStorage.setItem('preferredLanguage', this.getAttribute('href'));
+                    });
+                });
+            }
         });
 
         // Handle image switching with pixel-perfect click detection
