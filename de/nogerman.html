@@ -38,7 +38,8 @@
         /* Mobile Controls Styles */
         #mobile-controls {
             display: none;
-            margin: 0 auto 15px auto;
+            margin: 0 0 15px 0;
+            align-self: flex-start;
             width: 120px;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
@@ -198,8 +199,8 @@
         
         <div class="container">
             <div class="error-container">
-                <!-- Mobile controls for chicken movement -->
-                <div id="mobile-controls">
+                <!-- Mobile controls for chicken movement - left aligned -->
+                <div id="mobile-controls" style="align-self: flex-start;">
                     <div class="controls-row">
                         <button class="control-button" id="btn-w">W</button>
                     </div>
