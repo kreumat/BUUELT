@@ -101,7 +101,7 @@ function tekrarlayanPopupGoster() {
     });
     
     // Bu popup'ın gösterildiği zamanı kaydet
-    localStorage.setItem('lastPopupTime', Date.now());
+    localStorage.setItem('lastPopupTime_tr', Date.now());
 }
 
 // Resim Popup İşlevselliği
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // Zaten bir popup görünürse yeni bir tane gösterme
         }
         
-        const lastPopupTime = localStorage.getItem('lastPopupTime');
+        const lastPopupTime = localStorage.getItem('lastPopupTime_tr');
         const currentTime = Date.now();
         
         // Son popup kaydı yoksa veya 10 dakikadan fazla zaman geçtiyse
